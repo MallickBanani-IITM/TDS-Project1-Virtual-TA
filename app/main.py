@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware  # <-- Add this
 from pydantic import BaseModel
 from typing import Optional, List
 import base64
@@ -6,6 +7,15 @@ import base64
 from app.utils import get_answer_from_knowledge_base  # You'll create this
 
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Use specific domains in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def read_root():
@@ -32,3 +42,4 @@ def answer_question(req: QuestionRequest):
         return AnswerResponse(answer=answer, links=links)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
