@@ -1,0 +1,46 @@
+providers:
+  - id: local-api
+    label: Virtual TA App
+    config:
+      baseUrl: https://tds-project1-virtual-ta-gcmc.vercel.app/api/
+
+prompts:
+  - name: Assignment Submission Issue
+    prompt: |
+      Why is my TDS assignment not submitting?
+    assert:
+      - type: contains
+        value: "assignment"
+      - type: is-json
+
+  - name: Quiz Deadline
+    prompt: |
+      What is the deadline for TDS quiz 5?
+    assert:
+      - type: contains
+        value: "deadline"
+      - type: is-json
+
+  - name: Reattempt Policy
+    prompt: |
+      Can I reattempt TDS graded assignment?
+    assert:
+      - type: contains
+        value: "reattempt"
+      - type: is-json
+
+  - name: Project Submission
+    prompt: |
+      What is the last date for TDS project submission?
+    assert:
+      - type: contains
+        value: "submission"
+      - type: is-json
+
+  - name: GitHub Submission Clarification
+    prompt: |
+      How do I submit my GitHub repo for TDS?
+    assert:
+      - type: contains
+        value: "GitHub"
+      - type: is-json
