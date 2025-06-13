@@ -1,0 +1,26 @@
+name: Run Promptfoo Tests
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'promptfooconfig.yaml'
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install promptfoo
+        run: npm install -g promptfoo
+
+      - name: Run promptfoo tests
+        run: promptfoo eval --config promptfooconfig.yaml
